@@ -25,6 +25,12 @@ void Logger::infoTemperature(float temperatureC) {
   Serial.println(temperatureC, 1);
 }
 
+void Logger::infoWifiConnected(const IPAddress& ipAddress) {
+  printPrefix("INFO");
+  Serial.print("WiFi connected ip=");
+  Serial.println(ipAddress);
+}
+
 void Logger::printPrefix(const char* level) {
   Serial.print('[');
   Serial.print(millis());

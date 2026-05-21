@@ -11,6 +11,7 @@ public:
   static void error(const char* message);
 
   static void infoTemperature(float temperatureC);
+  static void infoWifiConnected(const IPAddress& ipAddress);
 
 private:
   static void printPrefix(const char* level);

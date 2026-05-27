@@ -12,6 +12,8 @@ public:
 
   static void infoTemperature(float temperatureC);
   static void infoWifiConnected(const IPAddress& ipAddress);
+  static void infoTelemetryPayload(const char* payload);
+  static void errorMqttState(int state);
 
 private:
   static void printPrefix(const char* level);

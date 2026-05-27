@@ -2,6 +2,7 @@
 
 #include "config.h"
 #include "Logger.h"
+#include "MQTTManager.h"
 #include "StatusLed.h"
 #include "TemperatureSensor.h"
 #include "WiFiManager.h"
@@ -11,8 +12,19 @@ WiFiManager wifiManager(
   Config::WifiSsid,
   Config::WifiPassword,
   Config::WifiHostname,
-  Config::WifiReconnectIntervalMs);
+  Config::WifiReconnectIntervalMs,
+  Config::WifiReadyDelayMs);
 StatusLed statusLed(Config::StatusLedPin, Config::StatusLedBlinkIntervalMs);
+MQTTManager mqttManager(
+  Config::MqttBrokerHost,
+  Config::MqttBrokerPort,
+  Config::DeviceId,
+  Config::MqttClientId,
+  Config::MqttUsername,
+  Config::MqttPassword,
+  Config::MqttTemperatureTopic,
+  Config::MqttReconnectIntervalMs,
+  wifiManager);
 
 unsigned long lastTemperatureReadMs = 0;
 
@@ -23,10 +35,12 @@ void setup() {
   temperatureSensor.begin();
   statusLed.begin();
   wifiManager.begin();
+  mqttManager.begin();
 }
 
 void loop() {
   wifiManager.update();
+  mqttManager.update();
   statusLed.update(wifiManager.isConnected());
 
   const unsigned long now = millis();
@@ -38,6 +52,7 @@ void loop() {
 
     if (temperatureSensor.readTemperature(temperatureC)) {
       Logger::infoTemperature(temperatureC);
+      mqttManager.publishTemperature(temperatureC);
     } else {
       Logger::error("DHT22 read failed");
     }

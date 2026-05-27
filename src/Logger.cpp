@@ -31,6 +31,18 @@ void Logger::infoWifiConnected(const IPAddress& ipAddress) {
   Serial.println(ipAddress);
 }
 
+void Logger::infoTelemetryPayload(const char* payload) {
+  printPrefix("INFO");
+  Serial.print("telemetry_payload=");
+  Serial.println(payload);
+}
+
+void Logger::errorMqttState(int state) {
+  printPrefix("ERROR");
+  Serial.print("mqtt_state=");
+  Serial.println(state);
+}
+
 void Logger::printPrefix(const char* level) {
   Serial.print('[');
   Serial.print(millis());

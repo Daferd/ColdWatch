@@ -17,6 +17,8 @@ namespace Config
   // constexpr const char *WifiPassword = "jhonm261";
   constexpr const char *WifiSsid = "Moto_AH";
   constexpr const char *WifiPassword = "12345678";
+  // constexpr const char *WifiSsid = "REDINTERNET";
+  // constexpr const char *WifiPassword = "987654321";
   constexpr const char *WifiHostname = "coldwatch";
   constexpr uint32_t WifiReconnectIntervalMs = 10000;
   constexpr uint32_t WifiReadyDelayMs = 2000;
@@ -24,7 +26,8 @@ namespace Config
   constexpr uint8_t StatusLedPin = 2;
   constexpr uint32_t StatusLedBlinkIntervalMs = 500;
 
-  constexpr const char *MqttBrokerHost = "10.76.111.1";
+  constexpr const char *MqttBrokerHost = "10.121.7.1";
+  // constexpr const char *MqttBrokerHost = "192.168.1.19";
   constexpr uint16_t MqttBrokerPort = 1883;
   constexpr const char *MqttClientId = "coldwatch_device_001";
   constexpr const char *MqttUsername = "";
